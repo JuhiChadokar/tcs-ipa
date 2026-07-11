@@ -74,3 +74,70 @@ Output:
 ----------------
 103#Alex
 2
+
+SOLUTION
+
+import java.util.*;
+class Employee {
+    private int employeeId;
+    private String employeeName;
+    private int age;
+    private char gender;
+    private double salary;
+
+    public Employee(int employeeId,String employeeName,int age,char gender,double salary){
+        this.employeeId=employeeId;this.employeeName=employeeName;
+        this.age=age;this.gender=gender;this.salary=salary;
+    }
+    public int getemployeeId(){return employeeId;}
+    public String getemployeeName(){return employeeName;}
+    public int getage(){return age;}
+    public char getgender(){return gender;} public double getsalary(){return salary;}
+
+}
+public class Solution{
+    public static void main(String args[]){
+        Scanner sc=new Scanner(System.in);
+        int no=sc.nextInt();sc.nextLine();
+        Employee arr[]=new Employee[no];
+        for(int i =0;i<4;i++){
+            int a =sc.nextInt();sc.nextLine();
+            String b=sc.nextLine();int c=sc.nextInt();sc.nextLine();
+            char d=sc.next().charAt(0);
+            double e=sc.nextDouble();
+            arr[i]=new Employee(a,b,c,d,e);
+        }
+        int aref=sc.nextInt();
+        Employee r1=getEmployeeWithSecondLowestSalary(arr);
+        if (r1!=null){System.out.println(r1.getemployeeId()+"#"+r1.getemployeeName());}
+        else {System.out.println("Null");}
+        int r2=countEmployeesBasedOnAge(arr,aref);
+        if (r2>0){System.out.println(r2);}
+        else{System.out.println("No employee found for the given age");}
+        
+    }
+    public static Employee getEmployeeWithSecondLowestSalary(Employee[] emp){
+        double minSalary=Integer.MAX_VALUE;
+        double secondLow=0;int cnt=0;
+        if (emp.length>1){
+            for(int i =0;i<emp.length;i++){
+                if(minSalary>emp[i].getsalary()){
+                    secondLow=minSalary;minSalary=emp[i].getsalary();
+                }
+                else if (secondLow>emp[i].getsalary()){
+                    secondLow=emp[i].getsalary();cnt=i;
+                }
+            }
+            return emp[cnt];
+        }
+        return null;
+    }
+    public static int countEmployeesBasedOnAge(Employee[] emp,int aRef){
+        int count=0;
+        for( Employee e :emp){
+            if (e.getage()==aRef){count++;}
+        }
+        return count ;
+
+    }
+}
